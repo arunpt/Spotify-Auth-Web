@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Spotify - redirect{% endblock title %}
+{% block content %}
+<br>
+<div class="container mt-3">
+   <div class="form-group spotify-border">
+      <label>Refresh token: </label>
+      <textarea class="form-control" id="TextAreaData" rows="3" readonly>{{code.get("refresh_token","Oops..retry")}}</textarea>
+   </div>
+   <div class="form-group spotify-border">
+      <label>Access token: </label>
+      <textarea class="form-control" id="TextAreaData" rows="3" readonly>{{code.get("access_token")}}</textarea>
+   </div>
+</div>
+{% endblock content %}

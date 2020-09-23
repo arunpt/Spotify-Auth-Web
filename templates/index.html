@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock title %}
+{% block ajax %}<script src="{{ url_for('static', filename='js/main.js') }}"></script>{% endblock ajax %}
+{% block some_css %}
+<style>
+.btn-spotify {
+   background-color:#1DB954;
+   color: #FFF;
+  }
+.btn-spotify:hover {
+   background-color:#fff;
+   color: #000;
+}
+.re-txt {
+  font-size: 12px;
+}
+</style>
+{% endblock some_css %}
+{% block content %}
+<br>
+<div class="container mt-3">
+   <form id="MyForm">
+      <div class="form-group ">
+         <input type="text" class="form-control" id="ClientID" placeholder="Enter the client id" required>
+      </div>
+      <div class="form-group">
+         <input type="text" class="form-control" id="ClientSec"  placeholder="Enter the client secret" required>
+      </div>
+      <div class="form-group">
+         <input type="text" class="form-control" id = "RedirectURI" placeholder="Redirect uri" value="{{ default }}" required>
+         <span class="re-txt">* You should add this url to your app in the spotify dashboard</span>  
+      </div>
+      <div class="form-group">
+         <select type = "text" multiple class="form-control"  id = "Scopes">
+            <option value="" disabled selected>Select the scopes</option>
+            <optgroup label="Images">
+               <option value="ugc-image-upload">image-upload</option>
+            </optgroup>
+            <optgroup label="Spotify Connect">
+               <option value="user-read-playback-state">read-playback-state</option>
+               <option value="user-modify-playback-state">modify-playback-state</option>
+               <option value="user-read-currently-playing">read-currently-playing</option>
+            </optgroup>
+            <optgroup label="Playback">
+               <option value="streaming">streaming</option>
+               <option value="app-remote-control">remote-control</option>
+            </optgroup>
+            <optgroup label="Users">
+               <option value="user-read-email">read-email</option>
+               <option value="user-read-private">read-private</option>
+            </optgroup>
+            <optgroup label="Playlists">
+               <option value="playlist-read-collaborative">read-collaborative</option>
+               <option value="playlist-modify-public">modify-public</option>
+               <option value="playlist-read-private">read-private</option>
+               <option value="playlist-modify-private">modify-private</option>
+            </optgroup>
+            <optgroup label="Library">
+               <option value="user-library-modify">library-modify</option>
+               <option value="user-library-read">library-read</option>
+            </optgroup>
+            <optgroup label="Listening History">
+               <option value="user-top-read">top-read</option>
+               <option value="user-read-playback-position">read-playback-position</option>
+               <option value="user-read-recently-played">read-recently-played</option>
+            </optgroup>
+            <optgroup label="Follow">
+               <option value="user-follow-read">follow-read</option>
+               <option value="user-follow-modify">follow-modify</option>
+            </optgroup>
+         </select>
+      </div>
+      <button type="submit" class="btn btn-outline-success btn-sm ml-1">Get Consent URL</button> 
+   </form>
+   <br>
+   <div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div>
+   <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
+   <div class="form-group spotify-border">
+      <textarea class="form-control" id="TextAreaData" rows="3" readonly></textarea>
+   </div>
+   <div class="btn-group">
+      <a id="openInBrowser" class="btn btn-spotify" href="#">Open</a>
+      <button id="CopyBtn" type="button" class="btn btn-default btn-sm btn-copy" data-clipboard-action="copy" data-clipboard-target="#TextAreaData">
+         <!-- icon from google's material design library -->
+         <svg class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M17,9H7V7H17M17,13H7V11H17M14,17H7V15H14M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3Z" />
+         </svg>
+      </button>
+   </div>
+</div>
+{% endblock content %}
